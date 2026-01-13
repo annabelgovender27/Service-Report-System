@@ -1,0 +1,442 @@
+﻿<Window x:Class="MunicipalService.ServiceRequestStatusWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Service Request Status" 
+        Height="750" 
+        Width="1100"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#F8FDF9">
+
+    <Window.Resources>
+        <Color x:Key="PrimaryColor">#2E7D32</Color>
+        <Color x:Key="PrimaryDarkColor">#1B5E20</Color>
+        <Color x:Key="AccentColor">#4CAF50</Color>
+        <Color x:Key="WarningColor">#FF9800</Color>
+        <Color x:Key="SuccessColor">#4CAF50</Color>
+        <Color x:Key="PendingColor">#FFC107</Color>
+        <Color x:Key="LightBackground">#F8FDF9</Color>
+        <Color x:Key="CardBackground">#FFFFFF</Color>
+        <Color x:Key="HoverColor">#E8F5E9</Color>
+
+        <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+        <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}"/>
+        <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}"/>
+        <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}"/>
+        <SolidColorBrush x:Key="PendingBrush" Color="{StaticResource PendingColor}"/>
+        <SolidColorBrush x:Key="LightBackgroundBrush" Color="{StaticResource LightBackground}"/>
+        <SolidColorBrush x:Key="CardBackgroundBrush" Color="{StaticResource CardBackground}"/>
+        <SolidColorBrush x:Key="HoverBrush" Color="{StaticResource HoverColor}"/>
+
+        <!-- Back Button Style -->
+        <Style x:Key="BackButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- Modern Button Style -->
+        <Style x:Key="ModernButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryDarkBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Outline Button Style -->
+        <Style x:Key="OutlineButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <!-- Status Badge Style -->
+        <Style x:Key="StatusBadgeStyle" TargetType="Border">
+            <Setter Property="Background" Value="#E8F5E9"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <!-- Priority Badge Style -->
+        <Style x:Key="PriorityBadgeStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="6,3"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <!-- Request Card Style -->
+        <Style x:Key="RequestCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}"/>
+            <Setter Property="BorderBrush" Value="#E8E8E8"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+
+        <!-- Modern ComboBox Style -->
+        <Style x:Key="ModernComboBox" TargetType="ComboBox">
+            <Setter Property="Background" Value="#FAFAFA"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="36"/>
+        </Style>
+
+        <!-- Section Header Style -->
+        <Style x:Key="SectionHeader" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryDarkBrush}"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource LightBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header with Back Button -->
+        <Border Grid.Row="0" Background="{StaticResource PrimaryBrush}" Padding="10">
+            <DockPanel>
+                <Button x:Name="BackButton"
+                        Content="← Back to Main Menu"
+                        DockPanel.Dock="Left"
+                        Click="BackButton_Click"
+                        Width="140"
+                        Style="{StaticResource BackButtonStyle}"/>
+                <TextBlock Text="Service Request Status"
+                           Foreground="White"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </DockPanel>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="320"/>
+                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Enhanced Filters Panel -->
+            <StackPanel Grid.Column="0">
+                <!-- Filters Card -->
+                <Border Background="{StaticResource CardBackgroundBrush}" 
+                        CornerRadius="12" 
+                        Padding="20"
+                        Margin="0,0,0,15"
+                        BorderBrush="#E8E8E8"
+                        BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="🔍 Search &amp; Filters" 
+                                   Style="{StaticResource SectionHeader}"/>
+
+                        <!-- View Filter -->
+                        <StackPanel Margin="0,0,0,15">
+                            <TextBlock Text="👁️ View" 
+                                       FontWeight="SemiBold" 
+                                       FontSize="13"
+                                       Foreground="{StaticResource PrimaryDarkBrush}"
+                                       Margin="0,0,0,6"/>
+                            <ComboBox x:Name="ViewFilterComboBox" 
+                                      Style="{StaticResource ModernComboBox}"
+                                      SelectionChanged="ViewFilter_Changed">
+                                <ComboBoxItem Content="All Requests"/>
+                                <ComboBoxItem Content="My Requests Only"/>
+                                
+                            </ComboBox>
+                        </StackPanel>
+
+                        <!-- Status Filter -->
+                        <StackPanel Margin="0,0,0,15">
+                            <TextBlock Text="📊 Status" 
+                                       FontWeight="SemiBold" 
+                                       FontSize="13"
+                                       Foreground="{StaticResource PrimaryDarkBrush}"
+                                       Margin="0,0,0,6"/>
+                            <ComboBox x:Name="StatusFilterComboBox" 
+                                      Style="{StaticResource ModernComboBox}"
+                                      SelectionChanged="StatusFilter_Changed">
+                                <ComboBoxItem Content="All Status"/>
+                                <ComboBoxItem Content="Pending"/>
+                                <ComboBoxItem Content="In Progress"/>
+                                <ComboBoxItem Content="Completed"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <!-- Area Filter -->
+                        <StackPanel Margin="0,0,0,15">
+                            <TextBlock Text="📍 Area" 
+                                       FontWeight="SemiBold" 
+                                       FontSize="13"
+                                       Foreground="{StaticResource PrimaryDarkBrush}"
+                                       Margin="0,0,0,6"/>
+                            <ComboBox x:Name="AreaFilterComboBox" 
+                                      Style="{StaticResource ModernComboBox}"
+                                      SelectionChanged="AreaFilter_Changed">
+                                <ComboBoxItem Content="All Areas"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <!-- Action Buttons -->
+                        <StackPanel Margin="0,0,0,15" Orientation="Horizontal">
+                            <Button x:Name="HighPriorityButton" 
+                                    Content="🚨 High Priority" 
+                                    Style="{StaticResource OutlineButton}"
+                                    Click="HighPriorityButton_Click"
+                                    Margin="0,0,8,0"/>
+                            <Button x:Name="ClearFiltersButton" 
+                                    Content="🔄 Clear" 
+                                    Style="{StaticResource OutlineButton}"
+                                    Click="ClearFiltersButton_Click"/>
+                        </StackPanel>
+
+                        <!-- Statistics -->
+                        <Border Background="#F8F9FA" 
+                                CornerRadius="8" 
+                                Padding="12"
+                                Margin="0,10,0,0">
+                            <StackPanel>
+                                <TextBlock Text="📈 Quick Stats" 
+                                           FontWeight="SemiBold" 
+                                           FontSize="12"
+                                           Foreground="{StaticResource PrimaryDarkBrush}"
+                                           Margin="0,0,0,6"/>
+                                <TextBlock x:Name="StatsText" 
+                                           FontSize="11"
+                                           Foreground="#666666"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                
+            </StackPanel>
+
+            <!-- Enhanced Requests Display Area -->
+            <ScrollViewer Grid.Column="2" 
+                          VerticalScrollBarVisibility="Auto"
+                          Padding="5">
+                <StackPanel>
+                    <!-- Results Header -->
+                    <Border Background="{StaticResource CardBackgroundBrush}"
+                            CornerRadius="10"
+                            Padding="20,15"
+                            Margin="0,0,0,15"
+                            BorderBrush="#E8E8E8"
+                            BorderThickness="1">
+                        <Grid>
+                            <TextBlock x:Name="ResultsHeader" 
+                                       Text="📋 Service Requests" 
+                                       FontSize="18" 
+                                       FontWeight="Bold"
+                                       Foreground="{StaticResource PrimaryDarkBrush}"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock x:Name="ResultsCount" 
+                                       Text=""
+                                       FontSize="13"
+                                       Foreground="#666666"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Requests List -->
+                    <ItemsControl x:Name="RequestsItemsControl">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="0,0,0,12" 
+                                        Background="{StaticResource CardBackgroundBrush}"
+                                        BorderBrush="#E8E8E8"
+                                        BorderThickness="1"
+                                        CornerRadius="12"
+                                        Padding="0">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}"/>
+                                            <Setter Property="BorderBrush" Value="#E8E8E8"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="{StaticResource HoverBrush}"/>
+                                                    <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+
+                                    <Grid Margin="20,15">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- ID Badge -->
+                                        <Border Grid.Column="0" 
+                                                Background="{StaticResource PrimaryBrush}"
+                                                CornerRadius="8"
+                                                Padding="10,8"
+                                                Margin="0">
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock Text="ID" 
+                                                           FontWeight="Bold"
+                                                           Foreground="White"
+                                                           FontSize="10"
+                                                           TextAlignment="Center"/>
+                                                <TextBlock Text="{Binding RequestId}" 
+                                                           FontWeight="Black"
+                                                           Foreground="White"
+                                                           FontSize="16"
+                                                           TextAlignment="Center"
+                                                           Margin="0,-2,0,0"/>
+                                            </StackPanel>
+                                        </Border>
+
+                                        <!-- Request Details -->
+                                        <StackPanel Grid.Column="2" 
+                                                    Margin="10,0,0,0"
+                                                    VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Category}" 
+                                                       FontWeight="Bold" 
+                                                       FontSize="16"
+                                                       Foreground="{StaticResource PrimaryDarkBrush}"
+                                                       Margin="0,0,0,4"/>
+                                            <TextBlock Text="{Binding Location}" 
+                                                       FontSize="13"
+                                                       Foreground="#666666"
+                                                       Margin="0,0,0,6"/>
+                                            <TextBlock Text="{Binding Description}" 
+                                                       TextWrapping="Wrap"
+                                                       Foreground="#666666"
+                                                       FontSize="12"
+                                                       LineHeight="16"
+                                                       Margin="0,0,0,8"/>
+
+                                            <!-- Status and Area -->
+                                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                                <Border Style="{StaticResource StatusBadgeStyle}">
+                                                    <TextBlock Text="{Binding Status}" 
+                                                               FontSize="10"
+                                                               FontWeight="SemiBold"
+                                                               Foreground="{StaticResource PrimaryDarkBrush}"/>
+                                                </Border>
+                                                <StackPanel Orientation="Horizontal" 
+                                                            VerticalAlignment="Center"
+                                                            Margin="10,0,0,0">
+                                                    <TextBlock Text="📍" 
+                                                               FontSize="10"
+                                                               Margin="0,0,4,0"/>
+                                                    <TextBlock Text="{Binding Area}" 
+                                                               FontSize="11"
+                                                               Foreground="#666666"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                        <!-- Priority and Date -->
+                                        <StackPanel Grid.Column="3" 
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Right"
+                                                    MinWidth="120">
+                                            <!-- Priority Badge - Using computed properties -->
+                                            <Border Style="{StaticResource PriorityBadgeStyle}"
+                                                    Background="{Binding PriorityColor}"
+                                                    Margin="0,0,0,8">
+                                                <TextBlock Text="{Binding PriorityText}" 
+                                                           FontSize="10"
+                                                           FontWeight="Bold"
+                                                           Foreground="White"
+                                                           HorizontalAlignment="Center"/>
+                                            </Border>
+
+                                            <!-- Submission Date -->
+                                            <StackPanel>
+                                                <TextBlock Text="📅 Submitted" 
+                                                           FontWeight="SemiBold" 
+                                                           FontSize="10"
+                                                           Foreground="{StaticResource PrimaryDarkBrush}"/>
+                                                <TextBlock Text="{Binding SubmissionDate, StringFormat='MMM dd, yyyy'}" 
+                                                           FontSize="10"
+                                                           Foreground="#666666"
+                                                           TextAlignment="Right"/>
+                                                <TextBlock Text="{Binding SubmissionDate, StringFormat='hh:mm tt'}" 
+                                                           FontSize="9"
+                                                           Foreground="#999999"
+                                                           TextAlignment="Right"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- No Results Message -->
+                    <Border x:Name="NoResultsText" 
+                            Background="{StaticResource CardBackgroundBrush}"
+                            CornerRadius="12"
+                            Padding="40,30"
+                            Margin="0,20"
+                            Visibility="Collapsed"
+                            BorderBrush="#E8E8E8"
+                            BorderThickness="1">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="📭" 
+                                       FontSize="40"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,0,0,10"/>
+                            <TextBlock Text="No service requests found" 
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource PrimaryDarkBrush}"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="Try adjusting your filters or view different request types" 
+                                       Foreground="#666666" 
+                                       FontSize="13"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

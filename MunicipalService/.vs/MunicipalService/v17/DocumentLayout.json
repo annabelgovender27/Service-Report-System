@@ -1,0 +1,57 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\lab_services_student\\source\\repos\\prog7312-poe-ST10271600\\MunicipalService\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D619CB8D-961E-4B76-BF06-FBAEDB4686CC}|MunicipalService\\MunicipalService.csproj|c:\\users\\lab_services_student\\source\\repos\\prog7312-poe-st10271600\\municipalservice\\municipalservice\\localeventswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D619CB8D-961E-4B76-BF06-FBAEDB4686CC}|MunicipalService\\MunicipalService.csproj|solutionrelative:municipalservice\\localeventswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D619CB8D-961E-4B76-BF06-FBAEDB4686CC}|MunicipalService\\MunicipalService.csproj|c:\\users\\lab_services_student\\source\\repos\\prog7312-poe-st10271600\\municipalservice\\municipalservice\\localeventswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D619CB8D-961E-4B76-BF06-FBAEDB4686CC}|MunicipalService\\MunicipalService.csproj|solutionrelative:municipalservice\\localeventswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LocalEventsWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\source\\repos\\prog7312-poe-ST10271600\\MunicipalService\\MunicipalService\\LocalEventsWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MunicipalService\\LocalEventsWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\lab_services_student\\source\\repos\\prog7312-poe-ST10271600\\MunicipalService\\MunicipalService\\LocalEventsWindow.xaml.cs",
+              "RelativeToolTip": "MunicipalService\\LocalEventsWindow.xaml.cs",
+              "ViewState": "AgIAAMEAAAAAAAAAAAAcwNYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T11:38:30.296Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LocalEventsWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\lab_services_student\\source\\repos\\prog7312-poe-ST10271600\\MunicipalService\\MunicipalService\\LocalEventsWindow.xaml",
+              "RelativeDocumentMoniker": "MunicipalService\\LocalEventsWindow.xaml",
+              "ToolTip": "C:\\Users\\lab_services_student\\source\\repos\\prog7312-poe-ST10271600\\MunicipalService\\MunicipalService\\LocalEventsWindow.xaml",
+              "RelativeToolTip": "MunicipalService\\LocalEventsWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-11T11:52:49.975Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+﻿<Window x:Class="MunicipalService.RatingPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Quick Feedback" Height="350" Width="450"
+        WindowStyle="None" AllowsTransparency="True"
+        WindowStartupLocation="CenterOwner" Background="Transparent"
+        ResizeMode="NoResize">
+	<Border CornerRadius="15" Background="White" BorderThickness="1" BorderBrush="#E0E0E0">
+		<Border.Effect>
+			<DropShadowEffect BlurRadius="20" Color="#CCCCCC" Opacity="0.3"/>
+		</Border.Effect>
+		<Grid Margin="20">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<!-- Header -->
+			<StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,15">
+				<TextBlock Text="😊 How was your experience?" FontSize="18" FontWeight="Bold"
+                           Foreground="#2E7D32" TextAlignment="Center"/>
+				<TextBlock Text="Rate your reporting process" Foreground="#666666"
+                           TextAlignment="Center" Margin="0,5,0,0"/>
+			</StackPanel>
+
+			<!-- Smiley Ratings -->
+			<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+				<Button x:Name="HappyButton" Width="60" Height="60" Margin="10"
+                        Click="RatingButton_Click" Tag="Happy" ToolTip="Happy - Great experience">
+					<TextBlock Text="😊" FontSize="30"/>
+				</Button>
+				<Button x:Name="NeutralButton" Width="60" Height="60" Margin="10"
+                        Click="RatingButton_Click" Tag="Neutral" ToolTip="Neutral - Okay experience">
+					<TextBlock Text="😐" FontSize="30"/>
+				</Button>
+				<Button x:Name="SadButton" Width="60" Height="60" Margin="10"
+                        Click="RatingButton_Click" Tag="Sad" ToolTip="Sad - Poor experience">
+					<TextBlock Text="😞" FontSize="30"/>
+				</Button>
+			</StackPanel>
+
+			<!-- Optional Comment Section -->
+			<StackPanel Grid.Row="2" Margin="0,0,0,15">
+				<TextBlock Text="Optional comment:" Margin="0,0,0,5" Foreground="#666666"/>
+				<Grid>
+					<TextBox x:Name="CommentTextBox" Height="60" TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto" AcceptsReturn="True"
+                             Background="#F9F9F9" BorderBrush="#CCCCCC"/>
+					<TextBlock x:Name="PlaceholderText" Text="Share any additional feedback..."
+                               Foreground="#999999" Margin="5,2" VerticalAlignment="Top"
+                               IsHitTestVisible="False"/>
+				</Grid>
+			</StackPanel>
+
+			<!-- Buttons -->
+			<StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+				<Button Content="Skip" Width="80" Margin="0,0,10,0"
+                        Click="SkipButton_Click" Background="Transparent"
+                        BorderThickness="1" BorderBrush="#CCCCCC"/>
+				<Button x:Name="SubmitButton" Content="Submit" Width="80" Background="#4CAF50"
+                        Foreground="White" FontWeight="Bold" Click="SubmitButton_Click"/>
+			</StackPanel>
+		</Grid>
+	</Border>
+</Window>
